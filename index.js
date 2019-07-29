@@ -11,10 +11,8 @@ app.get('/deploy', function (req, res) {
   const exec = require('child_process').exec;
   const repo = '/var/www/gamein-front-reactjs/';
 
-  exec('cd ' + repo + ' && touch test');
-  
+  exec('cd ' + repo + ' && git pull && npm run build');
 })
-//
 
 app.listen(3000, function () {
   console.log('Server ON')
