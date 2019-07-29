@@ -5,7 +5,7 @@ const routes = require("./src/routes/routes")
 app.use(routes)
 
 // DEPLOY
-app.get('/deploy', function (req, res) {
+app.post('/deploy', function (req, res) {
   const exec = require('child_process').exec;
 
   exec('cd /var/www/gamein-front-reactjs && ./deploy.sh', function(err, stdout, stderr){
