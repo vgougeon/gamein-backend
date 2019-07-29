@@ -1,0 +1,26 @@
+{
+  "name": "gamein-backend",
+  "version": "0.0.1",
+  "description": "NodeJS backend - gamein",
+  "main": "index.js",
+  "scripts": {
+    "serve": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vgougeon/gamein-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vgougeon/gamein-backend/issues"
+  },
+  "homepage": "https://github.com/vgougeon/gamein-backend#readme",
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
