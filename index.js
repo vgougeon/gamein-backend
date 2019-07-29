@@ -6,12 +6,15 @@ app.use(routes)
 
 // DEPLOY
 app.get('/deploy', function (req, res) {
-  res.send('Deploiement...')
-
   const exec = require('child_process').exec;
-  const repo = '/var/www/gamein-front-reactjs/';
 
-  exec('cd ' + repo + ' && git pull');
+  exec('cd /var/www/gamein-front-reactjs && ./deploy.sh', function(err, stdout, stderr){
+    if (err) {
+     console.error(err);
+     return res.send(500);
+    }
+    res.send(200);
+  });
 })
 
 app.listen(3000, function () {
