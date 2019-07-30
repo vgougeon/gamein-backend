@@ -1,8 +1,10 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-router.get('/', function (req, res) {
-  res.send('Hello World!')
-})
+const handlers = require('../handlers')
 
-module.exports = router;
+// router.get('/', handlers.me)
+let test = 1;
+router.get('/', handlers.me)
+
+module.exports = router
