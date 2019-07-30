@@ -6,4 +6,4 @@ git pull
 
 echo "Pull success"
 
-echo "Building..."
+echo "Restarting..."

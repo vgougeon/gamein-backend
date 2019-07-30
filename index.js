@@ -12,6 +12,6 @@ const db = mysql.createConnection({
 const routes = require('./src/routes/routes')
 app.use(routes)
 
-app.listen(3001, function () {
+app.listen(3000, function () {
   console.log('Server ON')
 })
