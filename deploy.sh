@@ -7,3 +7,5 @@ git pull
 echo "Pull success"
 
 echo "Restarting..."
+
+forever restart index.js
