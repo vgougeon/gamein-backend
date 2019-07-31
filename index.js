@@ -1,20 +1,24 @@
 const express = require('express')
+const sess = require('express-session')
 const app = express()
 
-const mysql = require('mysql')
-const db = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'azerty31',
-  database : 'gamein'
+app.use(sess({
+  secret: 'gamein',
+  resave: false,
+  saveUninitialized: true,
+}))
+
+const mysql = require('mysql2/promise')
+const pool = mysql.createPool({
+  host: 'localhost',
+  user: 'root',
+  password: 'azerty31',
+  database: 'gamein'
 });
 
-db.connect();
-db.query('SELECT username FROM accounts WHERE id = 7', function (error, results, fields) {
-  if (error) throw error;
-  console.log('The solution is: ', results[0].username);
-});
-const routes = require('./src/routes/routes')
+const test = "Salut"
+
+const routes = require('./src/routes/routes')(pool)
 app.use(routes)
 
 app.listen(3000, function () {
