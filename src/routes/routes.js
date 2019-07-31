@@ -3,8 +3,6 @@ const router = express.Router()
 
 const handlers = require('../handlers')
 
-// router.get('/', handlers.me)
-let test = 1;
 router.get('/', handlers.me)
 
 module.exports = router
