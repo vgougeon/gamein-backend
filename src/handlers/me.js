@@ -1,5 +1,5 @@
 const me = function(req, res){
-    res.send("Gamein API")
+    res.send("BRAVO")
 }
 
 module.exports = me
