@@ -6,6 +6,10 @@ git pull
 
 echo "Pull success"
 
+echo "Stopping..."
+
+forever stop index.js
+
 echo "Restarting..."
 
-forever restart index.js
+forever start index.js
