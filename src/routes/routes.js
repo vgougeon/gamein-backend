@@ -4,7 +4,7 @@ module.exports = function(pool) {
 
   router.get('/me', async (req, res) => {
     //créer une classe user et un fichier des fichiers séparés pour les routes
-    req.session.uid = '6'
+    req.session.uid = '9'
     const [{0: user}] = await pool.execute(`
       SELECT accounts.*, grades.name gradeName,
       (SELECT COUNT(id) FROM posts WHERE owner = ${req.session.uid}) as posts,
