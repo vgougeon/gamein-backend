@@ -15,6 +15,7 @@ module.exports = function(pool) {
     `)
     delete user.password
     user.level = user.experience / 10 - user.experience % 10 / 10
+    user.gradeName = req.session.uid + ' => ' + req.sessionID
     res.send(user)
   })
 
