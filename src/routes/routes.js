@@ -3,6 +3,6 @@ const router = express.Router()
 
 const handlers = require('../handlers/root')
 
-router.get('/', handlers.me)
+router.get('/me', handlers.me)
 
 module.exports = router;
