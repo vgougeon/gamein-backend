@@ -1,6 +1,6 @@
 const pool = require('../database/db')
 const me = async function(req, res){
-  req.session.uid = '7'
+  req.session.uid = '6'
   const [{0: user}] = await pool.execute(`
     SELECT accounts.*, grades.name gradeName,
     (SELECT COUNT(id) FROM posts WHERE owner = ${req.session.uid}) as posts,
