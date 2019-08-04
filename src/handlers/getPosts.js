@@ -3,7 +3,12 @@ const getPosts = async function(req, res){
   req.session.uid = '6'
 
   const [posts] = await pool.execute(`
-    SELECT posts.*, accounts.username, accounts.display_name, accounts.avatar, grades.name, like_post.account_id,
+    SELECT 
+    posts.*,
+    DATE_FORMAT(posts.date, "%M %e - %H:%i") as dateformat,
+    accounts.username, accounts.display_name, accounts.avatar, 
+    grades.name, 
+    like_post.account_id,
     (select count(*) from like_post WHERE post_id = posts.id) likes,
     (select count(*) from comments WHERE post_id = posts.id) comments,
     p.path
