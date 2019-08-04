@@ -1,3 +1,4 @@
 module.exports = {
-  me: require('./me')
+  me: require('./me'),
+  getPosts: require('./getPosts')
 }
