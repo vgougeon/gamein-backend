@@ -2,8 +2,8 @@ const pool = require('../database/db')
 const me = async function(req, res){
   const [{0: user}] = await pool.execute(`
     SELECT accounts.*, grades.name gradeName,
-    (SELECT COUNT(id) FROM posts WHERE owner = ${req.session.uid}) as posts,
-    (SELECT COUNT(id) FROM follows WHERE followed_id = ${req.session.uid}) as followers
+    (SELECT COUNT(id) FROM posts WHERE owner = 6) as posts,
+    (SELECT COUNT(id) FROM follows WHERE followed_id = 6) as followers
     FROM accounts 
     INNER JOIN grades ON accounts.grade = grades.id 
     WHERE accounts.id = 6
