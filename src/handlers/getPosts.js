@@ -1,7 +1,7 @@
 const pool = require('../database/db')
 const getPosts = async function(req, res){
   req.session.uid = '6'
-
+  console.log(req.session)
   const [posts] = await pool.execute(`
     SELECT 
     posts.*,

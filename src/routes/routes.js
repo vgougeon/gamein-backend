@@ -7,6 +7,6 @@ router.get('/me', handlers.me)
 router.get('/getPosts', handlers.getPosts)
 router.get('/getComments', handlers.getComments)
 
-
+router.post('/signIn', handlers.signIn)
 
 module.exports = router;
