@@ -1,5 +1,6 @@
 const pool = require('../database/db')
 const me = async function(req, res){
+  console.log(req.get('authorization'))
   const [{0: user}] = await pool.execute(`
     SELECT accounts.*, grades.name gradeName,
     (SELECT COUNT(id) FROM posts WHERE owner = 6) as posts,

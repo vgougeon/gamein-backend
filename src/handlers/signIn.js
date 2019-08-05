@@ -2,7 +2,7 @@ const pool = require('../database/db')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const signIn = async function(req, res){
-  console.log(JSON.stringify(req.headers))
+  console.log(req.get('authorization'))
   const [{0: user}] = await pool.execute(`
     SELECT password, id
     FROM accounts 
