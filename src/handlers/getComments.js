@@ -1,6 +1,5 @@
 const pool = require('../database/db')
 const getComments = async function(req, res){
-  req.session.uid = '6'
   if(isNaN(req.query.post)){
     return 500
   }
