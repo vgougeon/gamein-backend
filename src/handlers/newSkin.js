@@ -4,7 +4,7 @@ const newSkin = async function(req, res){
         return false
     }
     console.log(req.files)
-    req.files.skin.mv('./1.jpg', function(err) {
+    req.files.skin.mv('./assets/skin/1.jpg', function(err) {
         if (err)
           return res.status(500).send(err);
         res.send('File uploaded!');
