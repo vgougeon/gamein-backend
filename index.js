@@ -14,7 +14,7 @@ app.use(express.json())
 
 app.use(routes)
 
-app.listen(3000, function () {
+app.listen(3001, function () {
 
   console.log('Server ON')
 })
