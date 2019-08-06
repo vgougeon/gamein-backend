@@ -14,7 +14,7 @@ const getGame = async function(req, res){
     `)
 
     const [skins] = await pool.execute(`
-    SELECT s.id FROM media m INNER JOIN skins_media lnk ON lnk.media_id = m.id INNER JOIN skins s ON s.id = lnk.skin_id WHERE m.id = ${req.query.game} LIMIT 1
+    SELECT s.id FROM media m INNER JOIN skins_media lnk ON lnk.media_id = m.id INNER JOIN skins s ON s.id = lnk.skin_id WHERE m.id = ${req.query.game} ORDER BY s.id DESC
     `)
     console.log(skins)
     const data = {
