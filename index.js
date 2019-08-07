@@ -11,10 +11,8 @@ app.use(fileUpload())
 app.use(express.urlencoded())
 app.use(express.json())
 
-
 app.use(routes)
 
 app.listen(3000, function () {
-
   console.log('Server ON')
 })

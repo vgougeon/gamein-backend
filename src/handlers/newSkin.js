@@ -13,7 +13,7 @@ const newSkin = async function(req, res){
     INSERT INTO skins_media (skin_id, media_id) VALUES (${skin.insertId}, ${gameId})
     `);
 
-    req.files.skin.mv(`./${skin.insertId}.jpg`, function(err) {
+    req.files.skin.mv(`/var/www/assets/skin/${skin.insertId}.jpg`, function(err) {
         if (err)
           return res.status(500).send(err);
         res.send('File uploaded!');
@@ -23,8 +23,8 @@ const newSkin = async function(req, res){
         let quality = Math.floor(req.files.skin.size  * (-0.0000666) + 100)
         if(quality >= 95) quality = 95
         if(quality <= 30) quality = 30
-        await imagemin([`./${skin.insertId}.jpg`], {
-            destination: './test',
+        await imagemin([`/var/www/assets/skin/${skin.insertId}.jpg`], {
+            destination: '/var/www/assets/skin/',
             plugins: [
                 imageminMozjpeg({
                     quality: quality
