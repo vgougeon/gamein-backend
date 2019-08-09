@@ -7,6 +7,7 @@ module.exports = {
   getPosts: require('./getPosts'),
   getComments: require('./getComments'),
 
+  getGames: require('./getGames'),
   getGame: require('./getGame'),
   newSkin: require('./newSkin'),
 }

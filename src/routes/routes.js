@@ -11,6 +11,7 @@ router.post('/likePost', handlers.likePost)
 router.get('/getPosts', handlers.getPosts)
 router.get('/getComments', handlers.getComments)
 
+router.get('/getGames', handlers.getGames)
 router.get('/getGame', handlers.getGame)
 router.post('/newSkin', handlers.newSkin)
 
