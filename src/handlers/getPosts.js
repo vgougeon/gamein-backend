@@ -1,5 +1,9 @@
 const pool = require('../database/db')
+require('../services/validation')();
 const getPosts = async function(req, res){
+  let id = 0
+  const user = validation(req)
+  if(user){ id = user.id }
   const [posts] = await pool.execute(`
     SELECT 
     posts.*,
@@ -12,13 +16,14 @@ const getPosts = async function(req, res){
     p.path
     FROM posts
     LEFT JOIN like_post ON posts.id = like_post.post_id
-    AND like_post.account_id = " . $id . "
+    AND like_post.account_id = ?
     LEFT JOIN accounts ON accounts.id = posts.owner
     LEFT JOIN grades ON grades.id = accounts.grade
     LEFT JOIN posts_picture p ON p.post_id = posts.id
     ORDER BY posts.date DESC
-    LIMIT 5
-  `)
+    LIMIT 5`,
+    [id]
+    )
   res.send(posts)
 }
 
