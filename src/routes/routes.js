@@ -9,6 +9,7 @@ router.get('/getComments', handlers.getComments)
 router.get('/getGame', handlers.getGame)
 
 router.post('/newSkin', handlers.newSkin)
+router.post('/newPost', handlers.newPost)
 router.post('/signIn', handlers.signIn)
 
 module.exports = router;

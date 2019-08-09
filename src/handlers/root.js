@@ -4,5 +4,6 @@ module.exports = {
   getComments: require('./getComments'),
   getGame: require('./getGame'),
   signIn: require('./signIn'),
-  newSkin: require('./newSkin')
+  newSkin: require('./newSkin'),
+  newPost: require('./newPost')
 }
