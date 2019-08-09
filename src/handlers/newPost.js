@@ -43,8 +43,6 @@ const newPost = async function(req, res){
     LEFT JOIN accounts ON accounts.id = posts.owner
     LEFT JOIN grades ON grades.id = accounts.grade
     LEFT JOIN posts_picture p ON p.post_id = posts.id
-    ORDER BY posts.date DESC
-    LIMIT 5
     WHERE posts.id = ?`,
     [post.insertId])
 
