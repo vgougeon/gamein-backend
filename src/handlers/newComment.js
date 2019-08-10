@@ -14,7 +14,13 @@ const newComment = async function(req, res){
     INSERT INTO comments (owner, post_id, content) VALUES (?, ?, ?)`,
     [user.id, req.body.post_id, req.body.content]);
 
-    res.status(200).send("success")
+    const [data] = await pool.execute(`
+    SELECT u.display_name, u.username, u.avatar, c.content 
+    FROM comments c 
+    INNER JOIN accounts u ON c.owner = u.id 
+    WHERE c.id = ?`,
+    [ comment.insertId ])
+    res.status(200).send(data)
 }
 
 module.exports = newComment
