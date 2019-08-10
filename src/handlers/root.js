@@ -6,6 +6,7 @@ module.exports = {
   likePost: require('./likePost'),
   getPosts: require('./getPosts'),
   getComments: require('./getComments'),
+  newComment: require('./newComment'),
 
   getGames: require('./getGames'),
   getGame: require('./getGame'),

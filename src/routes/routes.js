@@ -10,6 +10,7 @@ router.post('/newPost', handlers.newPost)
 router.post('/likePost', handlers.likePost)
 router.get('/getPosts', handlers.getPosts)
 router.get('/getComments', handlers.getComments)
+router.post('/newComment', handlers.newComment)
 
 router.get('/getGames', handlers.getGames)
 router.get('/getGame', handlers.getGame)
