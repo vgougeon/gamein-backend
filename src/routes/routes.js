@@ -16,6 +16,6 @@ router.get('/getGames', handlers.getGames)
 router.get('/getGame', handlers.getGame)
 router.post('/newSkin', handlers.newSkin)
 
-
+router.get('/getConsoles', handlers.getConsoles)
 
 module.exports = router;
