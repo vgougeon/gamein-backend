@@ -1,4 +1,5 @@
 const pool = require('../database/db')
+const escape = require('escape-html');
 require('../services/validation')();
 require('../services/compress')();
 const newPost = async function(req, res){
@@ -9,6 +10,8 @@ const newPost = async function(req, res){
         res.status(400).send('err-empty-message')
         return false;
     }
+    
+    req.body.content = escape(req.body.content)
 
     const [post] = await pool.execute(`
     INSERT INTO posts (owner, content) VALUES (?, ?)`,
