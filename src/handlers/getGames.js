@@ -3,7 +3,7 @@ const getGames = async function(req, res){
   const offset = req.query.offset || 0;
 
   const [games] = await pool.execute(`
-  SELECT m.id, m.name, year(m.release_date) as release_year,
+  SELECT m.id, m.name, year(m.release_date) as release_year, s.skin as skin,
   IF( 
     c.id IS NULL, 
     json_array(),
@@ -18,6 +18,7 @@ const getGames = async function(req, res){
   FROM media m
   LEFT JOIN media_consoles mc ON mc.media_id = m.id
   LEFT JOIN consoles c ON mc.console_id = c.id
+  LEFT JOIN (SELECT JSON_ARRAYAGG(skin_id) as skin, media_id FROM skins_media GROUP BY media_id) s ON s.media_id = m.id
   GROUP BY m.id
   LIMIT 8 OFFSET ?
   `,
