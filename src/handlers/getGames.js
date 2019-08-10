@@ -19,15 +19,10 @@ const getGames = async function(req, res){
   LEFT JOIN media_consoles mc ON mc.media_id = m.id
   LEFT JOIN consoles c ON mc.console_id = c.id
   GROUP BY m.id
-  `)
+  LIMIT 8 OFFSET ?
+  `,
+  [offset])
   res.send(games)
 }
 
 module.exports = getGames
-
-// GROUP_CONCAT(
-//   JSON_OBJECT(
-//     'name', c.name,
-//     'color', c.color
-//   )
-// ) AS list
