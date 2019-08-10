@@ -12,7 +12,7 @@ const newComment = async function(req, res){
 
     const [comment] = await pool.execute(`
     INSERT INTO comments (owner, post_id, content) VALUES (?, ?, ?)`,
-    [user.id, req.body.content, req.body.post_id]);
+    [user.id, req.body.post_id, req.body.content]);
 
     res.status(200).send("success")
 }
