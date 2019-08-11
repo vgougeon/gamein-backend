@@ -34,8 +34,6 @@ const getGames = async function(req, res){
   GROUP BY m.id
   LIMIT 8 OFFSET ${offset}
   `)
-  console.log(offset)
-  console.log(req.body.filters)
   res.send(games)
 }
 
