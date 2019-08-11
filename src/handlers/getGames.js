@@ -32,9 +32,10 @@ const getGames = async function(req, res){
   LEFT JOIN (SELECT JSON_ARRAYAGG(skin_id) as skin, media_id FROM skins_media GROUP BY media_id) s ON s.media_id = m.id
   ${where}
   GROUP BY m.id
-  LIMIT 16 OFFSET 0
+  LIMIT 8 OFFSET ${offset}
   `)
   console.log(offset)
+  console.log(req.body.filters)
   res.send(games)
 }
 
