@@ -1,7 +1,18 @@
 const pool = require('../database/db')
 const getGames = async function(req, res){
-  const offset = req.query.offset || 0;
-
+  const offset = req.body.offset || 0;
+  let where = ''
+  if(req.body.filters !== undefined){
+    if(req.body.filters.consoles !== undefined){
+      if(req.body.filters.consoles.length > 1){
+        let consoles = req.body.filters.consoles.join(', ')
+        where = `WHERE c.id IN (${consoles})`
+      }
+      else if (req.body.filters.consoles.length === 1){
+        where = `WHERE c.id = ${parseInt(req.body.filters.consoles[0])}`
+      }      
+    }
+  }
   const [games] = await pool.execute(`
   SELECT m.id, m.name, year(m.release_date) as release_year, s.skin as skin,
   IF( 
@@ -19,10 +30,11 @@ const getGames = async function(req, res){
   LEFT JOIN media_consoles mc ON mc.media_id = m.id
   LEFT JOIN consoles c ON mc.console_id = c.id
   LEFT JOIN (SELECT JSON_ARRAYAGG(skin_id) as skin, media_id FROM skins_media GROUP BY media_id) s ON s.media_id = m.id
+  ${where}
   GROUP BY m.id
-  LIMIT 8 OFFSET ?
-  `,
-  [offset])
+  LIMIT 16 OFFSET 0
+  `)
+  console.log(offset)
   res.send(games)
 }
 
