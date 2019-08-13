@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test SOCKET</title>
+</head>
+<body>
+    <form>
+        <input type="text" id="message"/>
+        <input type="submit" />
+    </form>
+    <div class="message_content">
+        
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+<script>
+    var socket = io.connect('http://localhost:3000');
+
+    $('form').submit(function(e){
+        e.preventDefault()
+        let input = $("#message").val()
+        socket.emit('message', input)
+        $('#message').val('')
+    });
+
+    socket.on('newMsg', (data) => {
+        $('.message_content').append(data + "</br>");
+    });
+</script>
+</body>
+</html>
