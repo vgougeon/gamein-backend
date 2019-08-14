@@ -1,7 +1,17 @@
-const chat = (socket, io) => {
+const chat = (socket, io, users) => {
 
     socket.on('new-message', function (data) {
-        io.emit('new', data);
+        let user;
+        for(let u of users){
+            if(u.socketId === socket.id){
+                user = u
+            }
+        }
+        let msg = {
+            username: user.display_name,
+            message:data.message
+        }
+        io.emit('new', msg);
     });
 
 }
