@@ -7,6 +7,7 @@ const root = (server) => {
     let users = []
     io.on('connection', async function (socket) {
         let user = await validation(socket.handshake.query['auth'])
+        if(!user){ return false }
         const [{0: userInformation}] = await pool.execute(`
         SELECT id, display_name, avatar FROM accounts
         WHERE id = ${user.id}
@@ -14,6 +15,7 @@ const root = (server) => {
         userInformation.socketId = socket.id
         users.push(userInformation)
         require('./chat')(socket, io, users)
+        
     })
     
 }
