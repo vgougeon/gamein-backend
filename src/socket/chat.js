@@ -9,7 +9,8 @@ const chat = (socket, io, users) => {
         }
         let msg = {
             username: user.display_name,
-            message:data.message
+            message:data.message,
+            avatar: user.avatar
         }
         io.emit('new', msg);
     });
