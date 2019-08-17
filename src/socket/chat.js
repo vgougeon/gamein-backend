@@ -8,6 +8,7 @@ const chat = (socket, io, users) => {
             }
         }
         let msg = {
+            userId: u.id,
             username: user.display_name,
             message:data.message,
             avatar: user.avatar
