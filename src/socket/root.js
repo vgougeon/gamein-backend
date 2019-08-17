@@ -6,7 +6,7 @@ const root = (server) => {
 
     let users = []
     io.on('connection', async function (socket) {
-        let user = await validation(socket.handshake.query['auth'])
+        let user = await socketValidation(socket.handshake.query['auth'])
         if(!user){ return false }
         const [{0: userInformation}] = await pool.execute(`
         SELECT id, display_name, avatar FROM accounts
