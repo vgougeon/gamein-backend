@@ -8,11 +8,13 @@ const chat = (socket, io, users) => {
             }
         }
         let msg = {
-            userId: u.id,
+            userId: user.id,
+            target: data.to,
             username: user.display_name,
             message:data.message,
             avatar: user.avatar
         }
+        console.log(data.to)
         io.emit('new', msg);
     });
 
