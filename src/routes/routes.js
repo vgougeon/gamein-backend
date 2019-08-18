@@ -12,6 +12,9 @@ router.get('/getPosts', handlers.getPosts)
 router.get('/getComments', handlers.getComments)
 router.post('/newComment', handlers.newComment)
 
+router.get('/getFriends', handlers.getFriends)
+
+
 router.post('/getGames', handlers.getGames)
 router.get('/getGame', handlers.getGame)
 router.post('/newSkin', handlers.newSkin)

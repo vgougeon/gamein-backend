@@ -8,6 +8,8 @@ module.exports = {
   getComments: require('./getComments'),
   newComment: require('./newComment'),
 
+  getFriends: require('./getFriends'),
+
   getGames: require('./getGames'),
   getGame: require('./getGame'),
   newSkin: require('./newSkin'),
