@@ -17,6 +17,7 @@ router.get('/getFriends', handlers.getFriends)
 
 router.post('/getGames', handlers.getGames)
 router.get('/getGame', handlers.getGame)
+router.get('/getGameOst', handlers.getGameOst)
 router.post('/newSkin', handlers.newSkin)
 
 router.get('/getConsoles', handlers.getConsoles)

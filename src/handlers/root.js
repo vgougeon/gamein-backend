@@ -12,6 +12,7 @@ module.exports = {
 
   getGames: require('./getGames'),
   getGame: require('./getGame'),
+  getGameOst: require('./getGameOst'),
   newSkin: require('./newSkin'),
 
   getConsoles: require('./getConsoles'),
