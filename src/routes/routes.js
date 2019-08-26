@@ -13,6 +13,7 @@ router.get('/getComments', handlers.getComments)
 router.post('/newComment', handlers.newComment)
 
 router.get('/getFriends', handlers.getFriends)
+router.get('/addOstsToMedia', handlers.addOstsToMedia)
 
 
 router.post('/getGames', handlers.getGames)

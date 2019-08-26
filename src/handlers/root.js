@@ -16,4 +16,5 @@ module.exports = {
   newSkin: require('./newSkin'),
 
   getConsoles: require('./getConsoles'),
+  addOstsToMedia: require('./addOstsToMedia')
 }
