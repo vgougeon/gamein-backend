@@ -33,7 +33,7 @@ const getGames = async function(req, res){
   ${where}
   GROUP BY m.id
   ORDER BY m.release_date DESC
-  LIMIT 8 OFFSET ${offset}
+  LIMIT 16 OFFSET ${offset}
   `)
   res.send(games)
 }
