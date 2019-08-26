@@ -1,11 +1,10 @@
 const pool = require('../database/db')
-const https = require('https');
 const axios = require('axios');
 require('../services/validation')();
 
 const addOstsToMedia = async function(req, res){
 	const user = validation(req)
-	if(!user){ return res.status(500).send('not-logged-in')}
+	// if(!user){ return res.status(500).send('not-logged-in')}
 	if(!req.query.playlistId){ return res.status(500).send('no playlistId specified')}
 	if(!req.query.game){ return res.status(500).send('no game specified')}
 
