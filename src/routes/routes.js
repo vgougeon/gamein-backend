@@ -19,6 +19,7 @@ router.get('/addOstsToMedia', handlers.addOstsToMedia)
 router.post('/getGames', handlers.getGames)
 router.get('/getGame', handlers.getGame)
 router.get('/getGameOst', handlers.getGameOst)
+router.get('/getOst', handlers.getOst)
 router.post('/newSkin', handlers.newSkin)
 
 router.get('/getConsoles', handlers.getConsoles)
