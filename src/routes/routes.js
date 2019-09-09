@@ -20,6 +20,7 @@ router.post('/getGames', handlers.getGames)
 router.get('/getGame', handlers.getGame)
 router.get('/getGameOst', handlers.getGameOst)
 router.get('/getOst', handlers.getOst)
+router.post('/likeOst', handlers.likeOst)
 router.post('/newSkin', handlers.newSkin)
 
 router.get('/getConsoles', handlers.getConsoles)
