@@ -8,7 +8,8 @@ const getOst = async function(req, res){
     id = user.id || 0
     const [{0: ost}] = await pool.execute(`
     SELECT ost.*, media.name as media_name,
-    (select count(*) from like_ost WHERE ost_id = ost.id) likes
+    (select count(*) from like_ost WHERE ost_id = ost.id) likes,
+    like_ost.account_id liked
     FROM ost
     LEFT JOIN media ON media.id = ost.media_id
     LEFT JOIN like_ost ON ost.id = like_ost.ost_id
