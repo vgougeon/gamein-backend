@@ -32,7 +32,7 @@ const getGames = async function(req, res){
   LEFT JOIN (SELECT JSON_ARRAYAGG(skin_id) as skin, media_id FROM skins_media GROUP BY media_id) s ON s.media_id = m.id
   ${where}
   GROUP BY m.id
-  ORDER BY m.release_date DESC
+  ORDER BY m.id DESC
   LIMIT 16 OFFSET ${offset}
   `)
   res.send(games)
