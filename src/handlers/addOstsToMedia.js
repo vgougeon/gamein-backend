@@ -15,7 +15,6 @@ const addOstsToMedia = async function(req, res){
 	let end = false
 	while(end === false){
 		response = await axios.get('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%2C+id&maxResults=50' + page + '&playlistId=' + req.query.playlistId + '&key=' + APIkey)
-		console.log(response)
 		for (const item of response.data.items) {
 			data.push([
 				parseInt(req.query.game),

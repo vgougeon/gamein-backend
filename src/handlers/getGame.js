@@ -1,7 +1,5 @@
 const pool = require('../database/db')
 const getGame = async function(req, res){
-    console.log("ok")
-    console.log(req.query.game);
     if(req.query.game === undefined || isNaN(req.query.game)){   
         return res.send(500)
     }
@@ -16,7 +14,6 @@ const getGame = async function(req, res){
     const [skins] = await pool.execute(`
     SELECT s.id FROM media m INNER JOIN skins_media lnk ON lnk.media_id = m.id INNER JOIN skins s ON s.id = lnk.skin_id WHERE m.id = ${req.query.game} ORDER BY s.id DESC
     `)
-    console.log(skins)
     const data = {
         ...game,
         console: consoles,

@@ -14,7 +14,6 @@ const me = async function(req, res){
     res.send("Expired...")
     return false
   }
-  console.log(decoded)
   res.send(token)
   return true
   if(!req.session.uid){
