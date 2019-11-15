@@ -14,7 +14,7 @@ const chat = (socket, io, users) => {
             message:data.message,
             avatar: user.avatar
         }
-        console.log("[SOCKET/Chat.js]" + user.display_name + " : " + data.to)
+        console.log("[SOCKET/Chat.js]" + user.display_name + " : " + data.message)
         io.emit('new', msg);
     });
 

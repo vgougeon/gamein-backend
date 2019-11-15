@@ -12,11 +12,10 @@ const root = (server) => {
         SELECT id, display_name, avatar FROM accounts
         WHERE id = ${user.id}
         `)
-        console.log('[SOCKET Token] User ' + user.display_name + ' trying to link token');
+        console.log('[SOCKET Token] User ' + userInformation.display_name + ' trying to link token');
         userInformation.socketId = socket.id
         users.push(userInformation)
         require('./chat')(socket, io, users)
-        
     })
     
 }
