@@ -18,7 +18,14 @@ const getGameOst = async function(req, res){
     ORDER BY liked DESC, likes DESC, id`
     ,[id, req.query.game])
 
-    res.send(ost)
+    const [skins] = await pool.execute(`
+    SELECT s.id FROM media m INNER JOIN skins_media lnk ON lnk.media_id = m.id INNER JOIN skins s ON s.id = lnk.skin_id WHERE m.id = ${req.query.game} ORDER BY s.id DESC
+    `)
+
+    res.send({
+        ...ost,
+        ...skins
+    })
 }
 
 module.exports = getGameOst
