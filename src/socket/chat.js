@@ -1,3 +1,4 @@
+const log = require('../services/logging');
 const chat = (socket, io, users) => {
 
     socket.on('new-message', function (data) {
@@ -14,7 +15,7 @@ const chat = (socket, io, users) => {
             message:data.message,
             avatar: user.avatar
         }
-        console.log("[SOCKET/Chat.js]" + user.display_name + " : " + data.message)
+        log.info("SOCKET chat.js", "Sent a message : " + data.message, user.display_name)
         io.emit('new', msg);
     });
 

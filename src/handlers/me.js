@@ -1,5 +1,6 @@
-const pool = require('../database/db')
+const pool = require('../database/db');
 const jwt = require('jsonwebtoken');
+const log = require('../services/logging');
 const me = async function(req, res){
   if(req.get('authorization') === undefined){
     res.send('false')
@@ -22,6 +23,7 @@ const me = async function(req, res){
   `)
   delete user.password
   user.level = user.experience / 10 - user.experience % 10 / 10
+  log.info("me.js", "Sent account information", user.username)
   res.send(user)
 }
 
