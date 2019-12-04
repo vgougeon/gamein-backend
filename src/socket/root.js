@@ -16,7 +16,7 @@ const root = (server) => {
         redis.set(user.id, socket.id, redis.print);
         log.info("SOCKET root.js", "new socketId : " + socket.id , userInformation.username)
         userInformation.socketId = socket.id
-        require('./chat')(socket, io, users)
+        require('./chat')(socket, io)
     })
     
 }
