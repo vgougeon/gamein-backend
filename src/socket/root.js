@@ -13,7 +13,8 @@ const root = (server) => {
         SELECT id, display_name, avatar, username FROM accounts
         WHERE id = ${user.id}
         `)
-        redis.set(user.id, socket.id, redis.print);
+        redis.set(user.id, socket.id, 'EX', 12000, redis.print);
+        redis.set(socket.id, user.id, 'EX', 12000, redis.print);
         log.info("SOCKET root.js", "new socketId : " + socket.id , userInformation.username)
         userInformation.socketId = socket.id
         require('./chat')(socket, io)
