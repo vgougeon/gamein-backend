@@ -14,7 +14,8 @@ const root = (server) => {
         SELECT id, display_name, avatar, username FROM accounts
         WHERE id = ${user.id}
         `)
-        redis.set(user.id, userInformation.username, redis.print);
+        // redis.set(user.id, userInformation.username, redis.print);
+        redis.hmset(user.id, userInformation, redis.print)
         log.info("SOCKET root.js", "new socketId : " + socket.id , userInformation.username)
         userInformation.socketId = socket.id
         users.push(userInformation)
