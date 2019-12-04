@@ -13,7 +13,7 @@ const root = (server) => {
         SELECT id, display_name, avatar, username FROM accounts
         WHERE id = ${user.id}
         `)
-        log.info("SOCKET root.js", "Linked token to socketId", userInformation.username)
+        log.info("SOCKET root.js", "new socketId : " + socket.id , userInformation.username)
         userInformation.socketId = socket.id
         users.push(userInformation)
         require('./chat')(socket, io, users)
