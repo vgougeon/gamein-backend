@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const pool = require('../database/db');
+const redis = require('../database/redis');
 const log = require('../services/logging');
 require('../services/validationsocket')();
 const root = (server) => {
