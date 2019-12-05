@@ -1,9 +1,13 @@
 const log = require('../services/logging');
+const pool = require('../database/db');
 const chat = (socket, io) => {
 
-    socket.on('new-message', function (data) {
+    socket.on('new-message', async function (data) {
         // Check if user is referenced in redis
-
+        // await pool.execute(`
+        // INSERT INTO like_post (account_id, post_id)
+        // VALUES (?, ?)`,
+        // [user.id, req.body.id])
         // let msg = {
         //     userId: user.id,
         //     target: data.to,

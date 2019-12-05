@@ -1,6 +1,7 @@
 const pool = require('../database/db')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const log = require('../services/logging')
 const signIn = async function(req, res){
   const [{0: user}] = await pool.execute(`
     SELECT password, id
@@ -14,7 +15,7 @@ const signIn = async function(req, res){
       expiresIn: '1d'
     })
     res.send(token)
-    console.log("[SignIn.js] User " + req.body.params.username + " signed in");
+    log.info("SignIn.js", "Connected", req.body.params.username)
   }
   else {
     res.send(false)
