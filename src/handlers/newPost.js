@@ -6,6 +6,7 @@ require('../services/compress')();
 const newPost = async function(req, res){
     const user = validation(req)
     if(!user){ return false }
+    log.info('newPost.js', 'New post', user.id)
     if(req.body.content.length <= 2){
         res.status(400).send('err-empty-message')
         log.info('newPost.js', 'Post is empty', user.id)
