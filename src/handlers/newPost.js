@@ -1,13 +1,14 @@
 const pool = require('../database/db')
 const escape = require('escape-html');
+const log = require('../services/logging')
 require('../services/validation')();
 require('../services/compress')();
 const newPost = async function(req, res){
     const user = validation(req)
     if(!user){ return false }
-
     if(req.body.content.length <= 2){
         res.status(400).send('err-empty-message')
+        log.info('newPost.js', 'Post is empty', user.id)
         return false;
     }
     
@@ -19,6 +20,7 @@ const newPost = async function(req, res){
 
     let file = (req.files && req.files.uploadImage) ? req.files.uploadImage : false
     if(file){
+        log.info('newPost.js', 'Post with image', user.id)
         await pool.execute(`
         INSERT INTO posts_picture (post_id, path) VALUES (? , ?)`,
         [ post.insertId, '' + post.insertId + '.jpg']);
@@ -26,8 +28,11 @@ const newPost = async function(req, res){
         let path = `/var/www/assets/posts/${post.insertId}.jpg`
         file.mv(path , function(err) {
         });
-
+        
         compress(file, path)
+    }
+    else {
+        log.info('newPost.js', 'No image', user.id)
     }
 
     const [{0: newPost}] = await pool.execute(`
