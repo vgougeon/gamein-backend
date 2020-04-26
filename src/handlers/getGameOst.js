@@ -15,7 +15,7 @@ const getGameOst = async function(req, res){
     LEFT JOIN like_ost ON ost.id = like_ost.ost_id
     AND like_ost.account_id = ?
     WHERE ost.media_id = ?
-    ORDER BY liked DESC, likes DESC, id`
+    ORDER BY liked DESC, likes DESC, plays DESC, id`
     ,[id, req.query.game])
 
     res.send(ost)
