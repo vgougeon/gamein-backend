@@ -1,6 +1,6 @@
 const pool = require('../database/db')
 
-const addViewOst = async function(req, res){
+const addListenOst = async function(req, res){
 
   if(!req.body.id){ return res.status(500).send('no-ost-specified')}
   await pool.execute(`
@@ -11,4 +11,4 @@ const addViewOst = async function(req, res){
   return res.status(200).send('1')
 
 }
-module.exports = addViewOst
+module.exports = addListenOst
