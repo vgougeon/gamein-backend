@@ -7,7 +7,7 @@ const addListenOst = async function(req, res){
   await pool.execute(`
     UPDATE ost
     SET plays = plays + 1
-    WHERE id = ?`
+    WHERE id = ?`,
     [req.body.id])
   return res.status(200).send('1')
 
