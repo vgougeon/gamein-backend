@@ -1,3 +1,5 @@
+const log = require('../services/logging');
+
 const mysql = require('mysql2/promise')
 const pool = mysql.createPool({
   host: 'localhost',
@@ -7,3 +9,5 @@ const pool = mysql.createPool({
 });
 
 module.exports = pool;
+
+log.info("INIT", "Connecting to MySQL")
