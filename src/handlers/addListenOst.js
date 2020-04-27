@@ -4,8 +4,8 @@ require('../services/validation')();
 
 const addListenOst = async function(req, res){
   const user = validation(req)
-  if(user) log.info("addListenOst.js", "New listen !" , user.name)
-  else log.info("addListenOst.js", "New listen !", "")
+  if(user) log.info("addListenOst.js", req.body.name , user.name)
+  else log.info("addListenOst.js", req.body.name, "")
   
   if(!req.body.id){ return res.status(500).send('no-ost-specified')}
   await pool.execute(`
