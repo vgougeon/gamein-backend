@@ -18,7 +18,6 @@ const register = async function(req, res){
   const [newUser] = await pool.execute(`
     INSERT INTO accounts (username, password, display_name) VALUES (?, ?, ?)`,
     [req.body.params.username, pass, req.body.params.username]);
-  res.status(200).send(newUser)
   const token = jwt.sign({id: newUser.insertId, name: req.body.params.username}, 'temp_key', {
     algorithm: 'HS256',
     expiresIn: '1d'
