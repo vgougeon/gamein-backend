@@ -1,6 +1,7 @@
 module.exports = {
   me: require('./me'), 
   signIn: require('./signIn'),
+  register: require('./register'),
 
   newPost: require('./newPost'),
   likePost: require('./likePost'),

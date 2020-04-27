@@ -5,6 +5,7 @@ const handlers = require('../handlers/root')
 
 router.get('/me', handlers.me)
 router.post('/signIn', handlers.signIn)
+router.post('/register', handlers.register)
 
 router.post('/newPost', handlers.newPost)
 router.post('/likePost', handlers.likePost)
