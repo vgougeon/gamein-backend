@@ -8,6 +8,7 @@ const signIn = async function(req, res){
     FROM accounts 
     WHERE username = '${req.body.params.username}'
   `)
+  if(!user) return res.status(200).send("wrong-password-or-username")
   const match = await bcrypt.compare(req.body.params.password, user.password)
   if(match){
     const token = jwt.sign({id: user.id, name: user.username}, 'temp_key', {
