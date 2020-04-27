@@ -19,15 +19,12 @@ const register = async function(req, res){
     INSERT INTO accounts (username, password, display_name) VALUES (?, ?, ?)`,
     [req.body.params.username, pass, req.body.params.username]);
   res.status(200).send(newUser)
-  // const match = await bcrypt.compare(req.body.params.password, user.password)
-  // if(match){
-  //   const token = jwt.sign({id: user.id, name: user.username}, 'temp_key', {
-  //     algorithm: 'HS256',
-  //     expiresIn: '1d'
-  //   })
-  //   res.send(token)
-  //   log.info("SignIn.js", "Connected", req.body.params.username)
-  // }
+  const token = jwt.sign({id: newUser.insertId, name: req.body.params.username}, 'temp_key', {
+    algorithm: 'HS256',
+    expiresIn: '1d'
+  })
+  log.info("register.js", "Register success !", req.body.params.username)
+  res.status(200).send(token)
 }
 
 module.exports = register
