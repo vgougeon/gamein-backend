@@ -2,7 +2,6 @@ const pool = require('../database/db');
 const jwt = require('jsonwebtoken');
 const log = require('../services/logging');
 const me = async function(req, res){
-  console.log(req.app.locals.io)
   if(req.get('authorization') === undefined){
     res.send('false')
     return false
