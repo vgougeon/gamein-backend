@@ -1,3 +1,4 @@
+const socket = require('./src/socket/socket');
 const express = require('express')
 const fileUpload = require('express-fileupload')
 const cors = require('cors')
@@ -18,9 +19,11 @@ app.use(routes)
 app.use(express.static('public'));
 
 const server = module.exports = require('http').Server(app);
-const socket = require('./src/socket/socket');
-// const socket = require('./src/socket/root')(server);
 server.listen(3000)
+
+
+// const socket = require('./src/socket/root')(server);
+
 
 
 

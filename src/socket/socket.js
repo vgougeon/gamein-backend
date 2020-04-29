@@ -1,11 +1,13 @@
-const app = require('../../index');
-const io = module.exports = require('socket.io')(app);
+const io = require('../../io')
+const log = require('../services/logging')
 const socketServer = require('../classes/socketServer');
 require('../services/validationsocket')();
+
 io.on('connection', async function (socket) {
     let user = await socketValidation(socket.handshake.query['auth'])
     if(!user){ return false }
+    
     socketServer.newClient(socket, user)
-    // log.info("SOCKET root.js", "new socketId : " + socket.id , userInformation.username)
+    log.info("SOCKET", "Just connected : " + socket.id)
     // require('./chat')(socket, io)
 })

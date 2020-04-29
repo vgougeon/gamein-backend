@@ -1,4 +1,4 @@
-const io = require('../socket/socket');
+const io = require('../../io');
 class SocketClient {
     constructor(sid, data) {
         this.sid = sid
@@ -7,7 +7,7 @@ class SocketClient {
     }
 
     addXp(amount) {
-        // io.to(this.sid).emit('addXp', amount);
+        io.to(this.sid).emit('addXp', amount);
     }
 }
  

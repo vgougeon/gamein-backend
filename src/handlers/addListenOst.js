@@ -1,7 +1,7 @@
 const pool = require('../database/db')
 const log = require('../services/logging');
 // const io = require('../socket/socket');
-// const socketServer = require('../classes/socketServer')
+const socketServer = require('../classes/socketServer')
 require('../services/validation')();
 
 const addListenOst = async function(req, res){
@@ -25,11 +25,11 @@ const addListenOst = async function(req, res){
     [user.id])
   }
 
-  // socketServer.getClients(user.id)
-  // .forEach((socketClient) => {
-  //   socketClient.addXp(1)
-  // })
-  // console.log(socketServer)
+  socketServer.getClients(user.id)
+  .forEach((socketClient) => {
+    socketClient.addXp(1)
+  })
+  console.log(socketServer)
   return res.status(200).send('1')
 
 }
