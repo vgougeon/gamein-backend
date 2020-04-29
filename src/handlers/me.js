@@ -23,6 +23,7 @@ const me = async function(req, res){
   `)
   delete user.password
   user.level = 1 + Math.trunc(user.experience / 10)
+  
   log.info("me.js", "Sent account information", user.username)
   res.send(user)
 }

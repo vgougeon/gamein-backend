@@ -5,9 +5,16 @@ require('../services/validationsocket')();
 
 io.on('connection', async function (socket) {
     let user = await socketValidation(socket.handshake.query['auth'])
-    if(!user){ return false }
+    if(user){
+        socketServer.newClient(socket, user)
+    }
+    const signIn = async (socket, data) => {
+        let user = await socketValidation(data.auth)
+        if(user) socketServer.newClient(socket, user)
+    }
+    socket.on('signIn', signIn.bind(null, socket))
+    socket.on('signOut', socketServer.removeClient.bind(socketServer, socket))
+    socket.on('disconnect', socketServer.removeClient.bind(socketServer, socket))
     
-    socketServer.newClient(socket, user)
-    log.info("SOCKET", "Just connected : " + socket.id)
     // require('./chat')(socket, io)
 })

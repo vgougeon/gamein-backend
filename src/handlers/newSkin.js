@@ -1,4 +1,6 @@
 const pool = require('../database/db')
+const socketServer = require('../classes/socketServer')
+const log = require('../services/logging')
 require('../services/validation')();
 require('../services/compress')();
 const newSkin = async function(req, res){
@@ -13,18 +15,33 @@ const newSkin = async function(req, res){
     `);
 
     let gameId = req.body.gameId
+    try {
+        await req.files.skin.mv(`/var/www/assets/skin/${skin.insertId}.jpg`)
+    }
+    catch(err) {
+        log.info("newSkin.js", "ERROR: file compress failed...")
+        console.error(err)
+        return res.status(500).send("Server error");
+    }
+    
+    try {
+        await compress(req.files.skin, `/var/www/assets/skin/${skin.insertId}.jpg`)
+    }
+    catch(err) {
+        log.info("newSkin.js", "ERROR: file compress failed...")
+        return res.status(500).send("Server error");
+    }
+
     await pool.execute(`
     INSERT INTO skins_media (skin_id, media_id) VALUES (${skin.insertId}, ${gameId})
     `);
 
-    req.files.skin.mv(`/var/www/assets/skin/${skin.insertId}.jpg`, function(err) {
-        if (err)
-          return res.status(500).send(err);
-    });
+    socketServer.getClients(user.id)
+    .forEach((socketClient) => {
+        socketClient.addXp(25, "new-skin")
+    })
 
-    compress(req.files.skin, `/var/www/assets/skin/${skin.insertId}.jpg`)
-
-    res.status(200).send('success')
+    return res.status(200).send('success')
 }
 
 module.exports = newSkin

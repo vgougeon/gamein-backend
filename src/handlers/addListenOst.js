@@ -19,17 +19,15 @@ const addListenOst = async function(req, res){
   if(user){ 
     await pool.execute(`
     UPDATE accounts
-    SET listens = listens + 1,
-    experience = experience + 1
+    SET listens = listens + 1
     WHERE id = ?`,
     [user.id])
   }
 
   socketServer.getClients(user.id)
   .forEach((socketClient) => {
-    socketClient.addXp(1)
+    socketClient.addXp(1, "ost-play")
   })
-  console.log(socketServer)
   return res.status(200).send('1')
 
 }

@@ -1,6 +1,7 @@
 const pool = require('../database/db')
 const escape = require('escape-html');
 const log = require('../services/logging')
+const socketServer = require('../classes/socketServer')
 require('../services/validation')();
 require('../services/compress')();
 const newPost = async function(req, res){
@@ -55,7 +56,12 @@ const newPost = async function(req, res){
     WHERE posts.id = ?`,
     [post.insertId])
 
-    res.status(200).send(newPost)
+    socketServer.getClients(user.id)
+    .forEach((socketClient) => {
+        socketClient.addXp(15, "new-post")
+    })
+
+    return res.status(200).send(newPost)
 }
 
 module.exports = newPost
