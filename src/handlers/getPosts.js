@@ -7,8 +7,7 @@ const getPosts = async function(req, res){
   const [posts] = await pool.execute(`
     SELECT 
     posts.*,
-    DATE_FORMAT(posts.date, "%M %e - %H:%i") as dateformat,
-    accounts.username, accounts.display_name, accounts.avatar, 
+    accounts.username, accounts.display_name, accounts.avatar, accounts.experience, accounts.skin,
     grades.name, 
     like_post.account_id,
     (select count(*) from like_post WHERE post_id = posts.id) likes,
@@ -24,7 +23,7 @@ const getPosts = async function(req, res){
     LIMIT 10`,
     [id]
     )
-  res.send(posts)
+  res.status(200).send(posts)
 }
 
 module.exports = getPosts

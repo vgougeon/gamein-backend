@@ -24,9 +24,9 @@ class SocketClient {
             xp = 15
             reason = "last-seen-1d"
         }
-        else if(!moment(this.data.last_seen).isAfter(moment().subtract(1, 'hours'))){
-            xp = 2
-            reason = "last-seen-1h"
+        else if(!moment(this.data.last_seen).isAfter(moment().subtract(10, 'minutes'))){
+            xp = 1
+            reason = "last-seen-10m"
         }
         if(xp) {
             this.data.last_seen = moment();
