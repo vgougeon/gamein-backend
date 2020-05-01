@@ -1,4 +1,5 @@
 const pool = require('../database/db')
+const socketServer = require('../classes/socketServer')
 require('../services/validation')();
 require('../services/compress')();
 const newComment = async function(req, res){
