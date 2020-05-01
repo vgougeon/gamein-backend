@@ -20,6 +20,12 @@ const newComment = async function(req, res){
     INNER JOIN accounts u ON c.owner = u.id 
     WHERE c.id = ?`,
     [ comment.insertId ])
+
+    socketServer.getClients(user.id)
+    .forEach((socketClient) => {
+        socketClient.addXp(3, "new-comment")
+    })
+
     res.status(200).send(data)
 }
 
