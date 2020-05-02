@@ -44,19 +44,36 @@ class SocketClient {
     checkCooldown(reason, id){
         let row = this.cooldowns.find(item => item.reason === reason)
         if(row) {
-            if(!moment(row.date).isAfter(moment().subtract(exp[reason].cooldown || 0, 'seconds'))) {
-                if(row.ids.findIndex(item => item === id) !== -1) return false
+            if(row.ids.includes(id)){
+                //Anti spam
+                return false
+            }
+            else {
+                if(id !== null) row.ids.push(id)
+            }
+            if(row.amount < (exp[reason].amount || 1)) {
+                //Xp disponible pour cette action
+                row.amount += 1
                 row.date = moment()
                 return true
             }
-            else return false
+            if(!moment(row.date).isAfter(moment().subtract(exp[reason].cooldown || 0, 'seconds'))) {
+                //Plus d'xp dispo mais assez attendu, accepter et reset
+                if(row.ids.findIndex(item => item === id) !== -1) return false
+                row.amount = 1
+                row.date = moment()
+                return true
+            }
+            else {
+                //Plus d'xp disponible pour cette action, refuser
+                return false
+            }
         }
         if(!row) {
             let n = { reason: reason, date: moment(), amount: 1, ids: []}
             if(id !== null) n.ids.push(id)
             this.cooldowns.push(n)
-
-            console.log(this.cooldowns)
+            //L'entrée n'existe pas, créer et accepter
         }
         return true
     }

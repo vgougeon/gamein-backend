@@ -1,11 +1,12 @@
 {
     "ost-play": {
         "xp": 1,
-        "cooldown": 20
+        "cooldown": 30
     },
     "ost-like": {
         "xp": 1,
-        "cooldown": 0
+        "cooldown": 30,
+        "amount": 3
     },
     "new-post": {
         "xp": 7,
@@ -17,7 +18,7 @@
     },
     "new-comment": {
         "xp": 3,
-        "cooldown": 10
+        "cooldown": 60
     },
     "new-skin": {
         "xp": 25,
