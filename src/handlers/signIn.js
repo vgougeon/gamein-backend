@@ -15,7 +15,7 @@ const signIn = async function(req, res){
       algorithm: 'HS256',
       expiresIn: '1d'
     })
-    res.send(token)
+    res.status(200).send(token)
     log.info("SignIn.js", "Connected", req.body.params.username)
   }
   else {
