@@ -1,5 +1,7 @@
 const pool = require('../database/db')
 require('../services/validation')();
+const socketServer = require('../classes/socketServer')
+const exp = require('../config/experience.json')
 
 const likeOst = async function(req, res){
   const user = validation(req)
@@ -18,6 +20,11 @@ const likeOst = async function(req, res){
       INSERT INTO like_ost (account_id, ost_id)
       VALUES (?, ?)`,
       [user.id, req.body.id])
+
+      socketServer.getClients(user.id)
+      .forEach((socketClient) => {
+          socketClient.addXp(exp["ost-like"].xp, "ost-like", req.body.id)
+      })
     return res.status(200).send('1')
   } else {
     await pool.execute(`

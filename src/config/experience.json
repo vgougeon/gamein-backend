@@ -1,0 +1,26 @@
+{
+    "ost-play": {
+        "xp": 1,
+        "cooldown": 20
+    },
+    "ost-like": {
+        "xp": 1,
+        "cooldown": 0
+    },
+    "new-post": {
+        "xp": 7,
+        "cooldown": 120
+    },
+    "post-like": {
+        "xp": 1,
+        "cooldown": 10
+    },
+    "new-comment": {
+        "xp": 3,
+        "cooldown": 10
+    },
+    "new-skin": {
+        "xp": 25,
+        "cooldown": 10
+    }
+}

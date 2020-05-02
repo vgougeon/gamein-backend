@@ -23,6 +23,7 @@ const getPosts = async function(req, res){
     LIMIT 10`,
     [id]
     )
+    
   res.status(200).send(posts)
 }
 

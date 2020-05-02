@@ -2,6 +2,7 @@ const pool = require('../database/db')
 const log = require('../services/logging');
 // const io = require('../socket/socket');
 const socketServer = require('../classes/socketServer')
+const exp = require('../config/experience.json')
 require('../services/validation')();
 
 const addListenOst = async function(req, res){
@@ -26,7 +27,7 @@ const addListenOst = async function(req, res){
 
   socketServer.getClients(user.id)
   .forEach((socketClient) => {
-    socketClient.addXp(1, "ost-play")
+    socketClient.addXp(exp["ost-play"].xp, "ost-play", req.body.id)
   })
   return res.status(200).send('1')
 

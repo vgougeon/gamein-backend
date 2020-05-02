@@ -1,5 +1,6 @@
 const pool = require('../database/db')
 const socketServer = require('../classes/socketServer')
+const exp = require('../config/experience.json')
 require('../services/validation')();
 require('../services/compress')();
 const newComment = async function(req, res){
@@ -24,7 +25,7 @@ const newComment = async function(req, res){
 
     socketServer.getClients(user.id)
     .forEach((socketClient) => {
-        socketClient.addXp(3, "new-comment")
+        socketClient.addXp(exp["new-comment"].xp, "new-comment")
     })
 
     res.status(200).send(data)

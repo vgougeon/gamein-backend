@@ -1,5 +1,6 @@
 const pool = require('../database/db')
 const socketServer = require('../classes/socketServer')
+const exp = require('../config/experience.json')
 const log = require('../services/logging')
 require('../services/validation')();
 require('../services/compress')();
@@ -38,7 +39,7 @@ const newSkin = async function(req, res){
 
     socketServer.getClients(user.id)
     .forEach((socketClient) => {
-        socketClient.addXp(25, "new-skin")
+        socketClient.addXp(exp['new-skin'].xp, "new-skin")
     })
 
     return res.status(200).send('success')

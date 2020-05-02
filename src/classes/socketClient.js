@@ -1,11 +1,13 @@
 const io = require('../../io');
 const pool = require('../database/db');
+const exp = require('../config/experience.json')
 const moment = require('moment')
 class SocketClient {
     constructor(sid, data) {
         this.sid = sid
         this.id = data.id
         this.data = data
+        this.cooldowns = []
         this.timeout = setTimeout(this.check.bind(this), 1500)
         
     }
@@ -39,8 +41,27 @@ class SocketClient {
         }
         
     }
+    checkCooldown(reason, id){
+        let row = this.cooldowns.find(item => item.reason === reason)
+        if(row) {
+            if(!moment(row.date).isAfter(moment().subtract(exp[reason].cooldown || 0, 'seconds'))) {
+                if(row.ids.findIndex(item => item === id) !== -1) return false
+                row.date = moment()
+                return true
+            }
+            else return false
+        }
+        if(!row) {
+            let n = { reason: reason, date: moment(), amount: 1, ids: []}
+            if(id !== null) n.ids.push(id)
+            this.cooldowns.push(n)
 
-    addXp(amount, reason) {
+            console.log(this.cooldowns)
+        }
+        return true
+    }
+    addXp(amount, reason, id = null) {
+        if(!this.checkCooldown(reason, id)) return false
         io.to(this.sid).emit('addXp', {amount: amount, reason: reason});
         pool.execute(`
             UPDATE accounts
