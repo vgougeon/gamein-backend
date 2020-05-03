@@ -1,8 +1,6 @@
 const pool = require('../database/db')
 const sass = require('node-sass')
-const sassOptionsDefaults = {
-    outputStyle:  'compressed'
-};
+const moment = require('moment')
 
 const getTheme = async function(req, res){
     if(req.query.id === undefined || isNaN(req.query.id)) return res.status(403).send("no-id-specified")
@@ -23,7 +21,6 @@ const getTheme = async function(req, res){
         outputStyle: 'compressed',
     }).css.toString();
     res.status(200).send(result)
-    
 }
 
 module.exports = getTheme
