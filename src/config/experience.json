@@ -5,7 +5,8 @@
     },
     "ost-like": {
         "xp": 1,
-        "cooldown": 30
+        "cooldown": 30,
+        "amount": 3
     },
     "new-post": {
         "xp": 7,
