@@ -28,4 +28,6 @@ router.post('/addListenOst', handlers.addListenOst)
 
 router.get('/getConsoles', handlers.getConsoles)
 
+router.get('/getTheme', handlers.getTheme)
+
 module.exports = router;

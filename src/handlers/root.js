@@ -21,5 +21,7 @@ module.exports = {
   addListenOst: require('./addListenOst'),
 
   getConsoles: require('./getConsoles'),
-  addOstsToMedia: require('./addOstsToMedia')
+  addOstsToMedia: require('./addOstsToMedia'),
+
+  getTheme: require('./getTheme')
 }
