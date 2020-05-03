@@ -5,8 +5,7 @@
     },
     "ost-like": {
         "xp": 1,
-        "cooldown": 30,
-        "amount": 3
+        "cooldown": 30
     },
     "new-post": {
         "xp": 7,
@@ -23,5 +22,13 @@
     "new-skin": {
         "xp": 25,
         "cooldown": 10
+    },
+    "last-seen-10m": {
+        "xp": 2,
+        "cooldown": 599
+    },
+    "last-seen-1d":{
+        "xp": 5,
+        "cooldown": 7200
     }
 }

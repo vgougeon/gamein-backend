@@ -20,6 +20,7 @@ class SocketClient {
     }
 
     updateLastSeen() {
+        
         let xp = 0
         let reason = ""
         if(moment().date() !== moment(this.data.last_seen).date()){
@@ -51,13 +52,13 @@ class SocketClient {
             else {
                 if(id !== null) row.ids.push(id)
             }
-            if(row.amount < (exp[reason].amount || 1)) {
+            if(row.amount < (exp[reason] && exp[reason].amount || 1)) {
                 //Xp disponible pour cette action
                 row.amount += 1
                 row.date = moment()
                 return true
             }
-            if(!moment(row.date).isAfter(moment().subtract(exp[reason].cooldown || 0, 'seconds'))) {
+            if(!moment(row.date).isAfter(moment().subtract(exp[reason] && exp[reason].cooldown || 0, 'seconds'))) {
                 //Plus d'xp dispo mais assez attendu, accepter et reset
                 if(row.ids.findIndex(item => item === id) !== -1) return false
                 row.amount = 1
