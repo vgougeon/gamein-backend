@@ -17,7 +17,7 @@ const newComment = async function(req, res){
     [user.id, req.body.post_id, req.body.content]);
 
     const [data] = await pool.execute(`
-    SELECT u.display_name, u.username, u.avatar, c.content 
+    SELECT u.display_name, u.username, u.avatar, c.*
     FROM comments c 
     INNER JOIN accounts u ON c.owner = u.id 
     WHERE c.id = ?`,

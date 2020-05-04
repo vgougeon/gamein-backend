@@ -14,7 +14,8 @@
     },
     "post-like": {
         "xp": 1,
-        "cooldown": 10
+        "cooldown": 10,
+        "amount": 2
     },
     "new-comment": {
         "xp": 3,
