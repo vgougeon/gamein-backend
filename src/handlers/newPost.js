@@ -29,10 +29,10 @@ const newPost = async function(req, res){
         [ post.insertId, '' + post.insertId + '.jpg']);
 
         let path = `/var/www/assets/posts/${post.insertId}.jpg`
-        file.mv(path , function(err) {
+        await file.mv(path , function(err) {
         });
         
-        compress(file, path)
+        await compress(file, path)
     }
     else {
         log.info('newPost.js', 'No image', user.id)
