@@ -16,5 +16,7 @@ io.on('connection', async function (socket) {
     socket.on('signOut', socketServer.removeClient.bind(socketServer, socket))
     socket.on('disconnect', socketServer.removeClient.bind(socketServer, socket))
     socket.on('getServers', socketServer.getServers.bind(socketServer, socket))
+    socket.on('joinPartyPage', () => { socket.join('party'); console.log('join partypage')})
+    socket.on('leavePartyPage', () => { socket.leave('party'); console.log('leave partypage')})
     // require('./chat')(socket, io)
 })

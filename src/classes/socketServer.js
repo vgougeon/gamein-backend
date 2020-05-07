@@ -18,11 +18,10 @@ class SocketServer {
         let list = []
         unique.forEach(client => list.push(client))
         log.info("SOCKET", list.join(' - '), "Client list")
-        
     }
     async newClient(socket, user) {
         let info = await this.refreshInformation(user.id)
-        this.clients.push(new Client(socket.id, info))
+        this.clients.push(new Client(socket.id, info, socket))
         log.info("SOCKET", "One more client, " + this.clients.length + " online now", info.username)
     }
     async removeClient(socket) {
@@ -46,20 +45,16 @@ class SocketServer {
     getClientBySid(sid){
         return this.clients.find(item => item.sid === sid)
     }
+    updateServers() {
+        io.to('party').emit('updateServers', this.games.map(item => item.serverListInfo()))
+    }
     getServers(socket) {
         socket.emit('getServers', this.games.map(item => item.serverListInfo()))
     }
     joinServer(socket, id) {
-        console.log(id)
         let game = this.games.find(item => item.id === id)
-        if(game.isFull()) {
-            socket.emit('joinServer', { error: "server-full"})
-            return false
-        }
-        else {
-            socket.emit('joinServer', { name: "ok"})
-        }
-        
+        if(game) game.addPlayer(socket)
+        else socket.emit('joinServer', { error: "game-not-found"})
     }
 }
 const socketServer = new SocketServer();

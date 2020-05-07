@@ -3,13 +3,24 @@ const pool = require('../database/db');
 const exp = require('../config/experience.json')
 const moment = require('moment')
 class SocketClient {
-    constructor(sid, data) {
+    constructor(sid, data, socket) {
         this.sid = sid
+        this.socket = socket
         this.id = data.id
         this.data = data
         this.cooldowns = []
         this.timeout = setTimeout(this.check.bind(this), 1500)
-        
+        this.events()
+    }
+    events(){
+        console.log("Hello")
+        const socketServer = require('./socketServer')
+        this.socket.on('joinServer', socketServer.joinServer.bind(socketServer, this.socket))
+    }
+    info() {
+        return {
+            ...this.data, sid: this.sid
+        }
     }
     destroy() {
         clearTimeout(this.timeout)
@@ -18,7 +29,6 @@ class SocketClient {
         this.updateLastSeen()
         this.timeout = setTimeout(this.check.bind(this), 61000)
     }
-
     updateLastSeen() {
         
         let xp = 0
