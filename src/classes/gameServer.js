@@ -54,7 +54,16 @@ class GameServer {
     removePlayer(player) {
         const socketServer = require('./socketServer')
         console.log("Left the game")
+        
         this.players = this.players.filter(item => item.sid !== player.sid)
+        if(player.sid === this.owner) {
+            if(this.players.length >= 1) {
+                this.owner = this.players[0].sid
+            }
+            else {
+                this.owner = null
+            }
+        }
         this.players.forEach(item => {
             item.socket.emit('playerLeft', player.id)
         })
@@ -62,6 +71,7 @@ class GameServer {
     }
     events(player) {
         player.socket.on('disconnect', this.removePlayer.bind(this, player))
+        player.socket.on('leaveServer', this.removePlayer.bind(this, player))
     }
 }
 module.exports = GameServer;

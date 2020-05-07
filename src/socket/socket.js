@@ -12,6 +12,7 @@ io.on('connection', async function (socket) {
         let user = await socketValidation(data.auth)
         if(user) socketServer.newClient(socket, user)
     }
+    socket.emit('ready', socket.id)
     socket.on('signIn', signIn.bind(null, socket))
     socket.on('signOut', socketServer.removeClient.bind(socketServer, socket))
     socket.on('disconnect', socketServer.removeClient.bind(socketServer, socket))
