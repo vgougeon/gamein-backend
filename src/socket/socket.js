@@ -15,6 +15,6 @@ io.on('connection', async function (socket) {
     socket.on('signIn', signIn.bind(null, socket))
     socket.on('signOut', socketServer.removeClient.bind(socketServer, socket))
     socket.on('disconnect', socketServer.removeClient.bind(socketServer, socket))
-    
+    socket.on('getServers', socketServer.getServers.bind(socketServer, socket))
     // require('./chat')(socket, io)
 })

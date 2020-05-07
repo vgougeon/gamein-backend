@@ -2,13 +2,15 @@ const io = require('../../io');
 const pool = require('../database/db');
 const log = require('../services/logging');
 const Client = require('./socketClient');
+const GameServer = require('./gameServer');
 
 class SocketServer {
     constructor() {
         this.clients = []
+        this.games = []
+        this.games.push(new GameServer("Skribol", 4))
         log.info("INIT", "Socket server online")
         setInterval(() => this.run(), 30000);
-        
     }
 
     run() {
@@ -43,6 +45,21 @@ class SocketServer {
     }
     getClientBySid(sid){
         return this.clients.find(item => item.sid === sid)
+    }
+    getServers(socket) {
+        socket.emit('getServers', this.games.map(item => item.serverListInfo()))
+    }
+    joinServer(socket, id) {
+        console.log(id)
+        let game = this.games.find(item => item.id === id)
+        if(game.isFull()) {
+            socket.emit('joinServer', { error: "server-full"})
+            return false
+        }
+        else {
+            socket.emit('joinServer', { name: "ok"})
+        }
+        
     }
 }
 const socketServer = new SocketServer();
