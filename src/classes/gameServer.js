@@ -3,10 +3,12 @@ const pool = require('../database/db');
 const exp = require('../config/experience.json')
 const moment = require('moment')
 const crypto = require('crypto')
+const Skribol = require('./games/skribol')
 
 class GameServer {
     constructor(game, maxPlayers, owner = null) {
         this.id = crypto.randomBytes(2).toString('hex');
+        this.gameInstance = null
         this.game = game
         this.owner = owner
         this.players = []
@@ -69,9 +71,24 @@ class GameServer {
         })
         socketServer.updateServers()
     }
+    startGame(player) {
+        if(player.sid !== this.owner) return false
+        switch(this.game){
+            case "Skribol":
+                console.log("start game skribol")
+                this.gameInstance = new Skribol(this)
+                break
+        }
+    }
+    emitToAllExcept(sid, event, data) {
+        this.players.forEach(player => {
+            if(player.sid !== sid) player.socket.emit(event, data)
+        })
+    }
     events(player) {
         player.socket.on('disconnect', this.removePlayer.bind(this, player))
         player.socket.on('leaveServer', this.removePlayer.bind(this, player))
+        player.socket.on('startGame', this.startGame.bind(this, player))
     }
 }
 module.exports = GameServer;
