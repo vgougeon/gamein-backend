@@ -11,6 +11,7 @@ class GameServer {
         this.gameInstance = null
         this.game = game
         this.owner = owner
+        this.playing = false
         this.players = []
         this.maxPlayers = maxPlayers
     }
@@ -18,6 +19,7 @@ class GameServer {
         return { 
             id: this.id,
             game: this.game,
+            playing: this.playing,
             owner: this.owner, 
             players: this.players.map(player => player.info()), 
             maxPlayers: this.maxPlayers 
@@ -69,14 +71,21 @@ class GameServer {
         this.players.forEach(item => {
             item.socket.emit('playerLeft', player.id)
         })
+
+        if(this.players.length === 0){
+            this.gameInstance = null;
+            this.playing = false
+        }
         socketServer.updateServers()
     }
     startGame(player) {
+        const socketServer = require('./socketServer')
         if(player.sid !== this.owner) return false
         switch(this.game){
             case "Skribol":
-                console.log("start game skribol")
+                this.playing = true
                 this.gameInstance = new Skribol(this)
+                socketServer.updateServers()
                 break
         }
     }

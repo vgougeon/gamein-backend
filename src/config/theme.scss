@@ -1,55 +1,63 @@
 html {
-    --header-size: 60px;
-    --aside-size: 260px;
-    --main-width: 800px;
-    --header: #{$header};
-    --logo-color: #{$invert};
-    @if (lightness($header) > 80) {
-      --header-gradient: #fff;
-      --logo-color: #{$theme};
-    }
-    @else {
-      --header-gradient: linear-gradient(#{$header}, #{mix($header, desaturate($theme, 33%), 90%)});
-      --logo-color: #fff;
-    }
-    
-    @if (lightness($bg) > 80) {
-      --boxshadow: 0 2px 4px #{mix(#000, $bg, 9%)};
-    }
-    @else if (lightness($bg) < 10) {
-      --boxshadow: 0 1px 3px #{mix(#000, $bg, 50%)};
-    }
-    @else {
-      --boxshadow: 0 0px 4px #{rgba(mix(#000, $bg, 15%),1)};
-    }
-    
-    --shadow: #{rgba(mix(#000, $bg),1)};
-    
-    
-    
-    --bg: #{$bg};
-    --bg-l1: #{mix($bg, $module, 33%)};
-    --bg-l2: #{mix($bg, $module, 66%)};
-    --bg-d1: #{mix($bg, invert($color), 33%)};
-    --bg-d2: #{mix($bg, invert($color), 66%)};
-    
-    --module: #{$module};
-    --module-soft1: #{mix($invert, $module, 5%)};
-    --module-soft2: #{mix($invert, $module, 10%)};
-  
-    --color: #{$color};
-    --color-soft1: #{mix($module, $color, 20%)};
-    --color-soft2: #{mix($module, $color, 40%)};
-    --color-soft3: #{mix($module, $color, 60%)};
-  
-    --theme: #{$theme};
-    --theme-soft1: #{mix($module, $theme, 20%)};
-    --theme-soft2: #{mix($module, $theme, 40%)};
-    --theme-soft3: #{mix($module, $theme, 60%)};
-    --theme-soft4: #{mix($module, $theme, 80%)};
-  
-    --soft: #{rgba($invert, 0.05)};
-    --themergb: #{red($theme)}, #{green($theme)}, #{blue($theme)};
-    --colorrgb: #{red($color)}, #{green($color)}, #{blue($color)};
-    --invertrgb: #{red($invert)}, #{green($invert)}, #{blue($invert)};
+  --header-size: 60px;
+  --aside-size: 260px;
+  --main-width: 800px;
+  --header: #{$header};
+  --logo-color: #{$invert};
+  @if (lightness($header) > 80) {
+    --header-gradient: #fff;
+    --logo-color: #{$theme};
   }
+  @else {
+    --header-gradient: linear-gradient(#{$header}, #{mix($header, desaturate($theme, 33%), 90%)});
+    --logo-color: #fff;
+  }
+
+  @if (lightness($bg) > 80) {
+    --boxshadow: 0 2px 4px #{mix(#000, $bg, 9%)};
+  }
+  @else if (lightness($bg) < 10) {
+    --boxshadow: 0 1px 3px #{mix(#000, $bg, 50%)};
+  }
+  @else {
+    --boxshadow: 0 0px 4px #{rgba(mix(#000, $bg, 15%),1)};
+  }
+  
+  --shadow: #{rgba(mix(#000, $bg),1)};
+  
+  
+  
+  --bg: #{$bg};
+  --bg-l1: #{mix($bg, $module, 33%)};
+  --bg-l2: #{mix($bg, $module, 66%)};
+  --bg-d1: #{mix($bg, invert($color), 33%)};
+  --bg-d2: #{mix($bg, invert($color), 66%)};
+  
+  --module: #{$module};
+  --module-soft1: #{mix($invert, $module, 5%)};
+  --module-soft2: #{mix($invert, $module, 10%)};
+
+  --color: #{$color};
+  --color-soft1: #{mix($module, $color, 20%)};
+  --color-soft2: #{mix($module, $color, 40%)};
+  --color-soft3: #{mix($module, $color, 60%)};
+
+  --theme: #{$theme};
+  --theme-soft1: #{mix($module, $theme, 20%)};
+  --theme-soft2: #{mix($module, $theme, 40%)};
+  --theme-soft3: #{mix($module, $theme, 60%)};
+  --theme-soft4: #{mix($module, $theme, 80%)};
+
+  --soft: #{rgba($invert, 0.05)};
+  @if (lightness($bg) > 50) {
+    --main-rgb: 255, 255, 255;
+    --canvas: #fff;
+  }
+  @else {
+    --main-rgb: 0, 0, 0;
+    --canvas: #234;
+  }
+  --themergb: #{red($theme)}, #{green($theme)}, #{blue($theme)};
+  --colorrgb: #{red($color)}, #{green($color)}, #{blue($color)};
+  --invertrgb: #{red($invert)}, #{green($invert)}, #{blue($invert)};
+}
