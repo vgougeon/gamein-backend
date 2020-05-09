@@ -94,6 +94,11 @@ class GameServer {
             if(player.sid !== sid) player.socket.emit(event, data)
         })
     }
+    emitToAll(event, data) {
+        this.players.forEach(player => {
+            player.socket.emit(event, data)
+        })
+    }
     events(player) {
         player.socket.on('disconnect', this.removePlayer.bind(this, player))
         player.socket.on('leaveServer', this.removePlayer.bind(this, player))

@@ -7,6 +7,7 @@ class Skribol {
         this.currentRound = 1
         this.currentPlayer = this.gameServer.players[0],
         this.currentPlayerStatus = "choosing-word"
+        this.currentPlayerWord = ""
         log.info('Skribol.js', 'Skribol game started !')
         this.start()
         
@@ -16,11 +17,71 @@ class Skribol {
         this.gameServer.players.forEach(player => {
             player.socket.emit('startGame', gameState)
         })
-        this.startTurn(this.currentPlayer)
+        this.waitForPlayers()
+    }
+    waitForPlayers() {
+        let force = setTimeout(() => {
+            console.log("Not all players are ready, force")
+            this.startTurn(this.currentPlayer)
+        }, 10000)
+        this.gameServer.players.forEach(player => {
+            player.socket.on('skribol-ready', () => {
+                player.gameReady = true
+                console.log("ONE READY")
+                if(this.gameServer.players.filter(item => item.gameReady === false).length === 0){
+                    clearTimeout(force)
+                    this.startTurn(this.currentPlayer)
+                }
+            })
+        })
     }
     startTurn(player) {
         this.listen(player)
-        this.currentPlayer.socket.emit('choose-word', ["parachute", "clavier", "soleil"])
+        let wordList = ["parachute", "clavier", "soleil"]
+        console.log(this.currentPlayer.id)
+        this.currentPlayer.socket.emit('skribol-chooseWord', wordList)
+        let force = setTimeout(() => {
+            console.log("Player didn't choose a word, selecting word " + wordList[0])
+            this.currentPlayerWord = wordList[0]
+            this.startDrawing()
+        }, 15000)
+        this.currentPlayer.socket.on('skribol-chooseWord', (data) => {
+            clearTimeout(force)
+            if(wordList.includes(data)){
+                this.currentPlayerWord = data
+            }
+            else {
+                this.currentPlayerWord = wordList[0]
+            }
+            this.startDrawing()
+        })
+        
+    }
+    startDrawing() {
+        this.currentPlayer.socket.emit('skribol-word', this.currentPlayerWord)
+        let hint = this.currentPlayerWord.replace(/[a-zA-Z]/g, '_')
+        this.revealLetter(hint)
+    }
+    revealLetter(hint) {
+        this.gameServer.emitToAllExcept(this.currentPlayer.sid, 'skribol-hint', hint)
+        let letters = this.currentPlayerWord.split('')
+        let newHint = hint.split('')
+        let found = false
+        let iteration = 0;
+        while(!found){
+            let rand = Math.floor(Math.random() * letters.length);
+            if(newHint[rand] === "_"){
+                newHint[rand] = letters[rand]
+                console.log(newHint.join(""))
+                found = true
+            }
+            iteration++;
+            if(iteration === 20) break
+        }
+        this.hintTimeout = setTimeout(this.revealLetter.bind(this, newHint.join('')), 15000)
+        if(newHint.findIndex(item => item === "_") === -1){
+            clearTimeout(this.hintTimeout)
+        }
     }
     info() {
         return {

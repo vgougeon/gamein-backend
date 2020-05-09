@@ -10,6 +10,7 @@ class SocketClient {
         this.data = data
         this.cooldowns = []
         this.timeout = setTimeout(this.check.bind(this), 1500)
+        this.gameReady = false
         this.events()
     }
     events(){
