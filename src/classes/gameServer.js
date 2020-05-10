@@ -73,6 +73,7 @@ class GameServer {
         })
 
         if(this.players.length === 0){
+            this.gameInstance.destroy()
             this.gameInstance = null;
             this.playing = false
         }

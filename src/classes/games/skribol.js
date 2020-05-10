@@ -1,4 +1,5 @@
 const log = require('../../services/logging')
+const moment = require('moment')
 class Skribol {
     constructor(gameServer) {
         this.gameServer = gameServer
@@ -8,6 +9,7 @@ class Skribol {
         this.currentPlayer = this.gameServer.players[0],
         this.currentPlayerStatus = "choosing-word"
         this.currentPlayerWord = ""
+        this.timeouts = []
         log.info('Skribol.js', 'Skribol game started !')
         this.start()
         
@@ -58,9 +60,17 @@ class Skribol {
         
     }
     startDrawing() {
+        this.startTime = moment()
+        this.timeouts.push(setTimeout(this.endDrawing.bind(this), this.timePerRound * 100));
         this.currentPlayer.socket.emit('skribol-word', this.currentPlayerWord)
         let hint = this.currentPlayerWord.replace(/[a-zA-Z]/g, '_')
         this.revealLetter(hint)
+    }
+    endDrawing() {
+        this.startTime = null;
+        //Attribution des points ?
+        this.gameServer.emitToAll('skribol-endDrawing', this.currentPlayerWord)
+
     }
     revealLetter(hint) {
         this.gameServer.emitToAllExcept(this.currentPlayer.sid, 'skribol-hint', hint)
@@ -78,9 +88,9 @@ class Skribol {
             iteration++;
             if(iteration === 20) break
         }
-        this.hintTimeout = setTimeout(this.revealLetter.bind(this, newHint.join('')), 15000)
+        this.timeouts.push(setTimeout(this.revealLetter.bind(this, newHint.join('')), 15000))
         if(newHint.findIndex(item => item === "_") === -1){
-            clearTimeout(this.hintTimeout)
+            this.destroy()
         }
     }
     info() {
@@ -100,6 +110,11 @@ class Skribol {
         })
         currentPlayer.socket.on('skribol-endPath', (data) => {
             this.gameServer.emitToAllExcept(currentPlayer.sid, 'skribol-endPath', data)
+        })
+    }
+    destroy() {
+        this.timeouts.forEach(timeout => {
+            clearTimeout(timeout)
         })
     }
 }
