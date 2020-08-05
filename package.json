@@ -29,7 +29,7 @@
     "crypto": "^1.0.1",
     "escape-html": "^1.0.3",
     "express": "^4.17.1",
-    "express-fileupload": "^1.1.5",
+    "express-fileupload": "^1.1.9",
     "imagemin": "^7.0.0",
     "imagemin-mozjpeg": "^8.0.0",
     "jsonwebtoken": "^8.5.1",
